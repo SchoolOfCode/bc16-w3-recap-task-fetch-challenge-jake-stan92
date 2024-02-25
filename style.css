@@ -6,7 +6,7 @@
 
 .container {
     background-color: aliceblue;
-    max-width: 75%;
+    max-width: 600px;
     margin: auto;
     padding: 2rem;
     margin-top: 3rem;
@@ -48,9 +48,14 @@ button:hover {
 }
 
 .outcome,
-.container-header {
+.container-header,
+.instructions {
     grid-column-start: 1;
     grid-column-end: 3;
     text-align: center;
+}
+
+.instructions {
+    text-align: left;
 }
 

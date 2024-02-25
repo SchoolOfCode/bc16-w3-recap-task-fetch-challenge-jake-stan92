@@ -1,13 +1,5 @@
-// 151 total pokemon
-// https://pokeapi.co/api/v2/pokemon/{randint will return random} // name will return specific
-// 2 pokemon vs each other - I choose you! {name} --- fight cat (type)
-// add score for ea win
-// load new pokemon after each round
-
 // global variables
 let score = 0
-
-// while loop for game?
 
 // define HTML variables
 // pokemon1
@@ -20,7 +12,7 @@ const pokemon2Img = document.querySelector('#pokemon2-img')
 const pokemon2Name = document.querySelector('#pokemon2-name')
 const pokemon2Btn = document.querySelector('#pokemon2-button')
 
-//buttons
+// buttons
 const choiceBtns = document.querySelectorAll('button');
 
 // score P tag
@@ -34,6 +26,7 @@ function generateRandom() {
     const randomNum = Math.floor(Math.random() * (152 - 1) + 1 )
     return randomNum
 }
+
 // use api to get 2x random pokemon
 async function getPokemon(randNum) {
     const url = `https://pokeapi.co/api/v2/pokemon/${randNum}`
@@ -44,15 +37,11 @@ async function getPokemon(randNum) {
         type: data.types[0].type.name,
         imgSrc: data.sprites.front_default
     }
-    // console.log(data)
     return pokemon
 }
 
 // display pokemon on page
 async function displayPokemon(option1, option2) {
-    // const pokemon1 = await option1
-    // const pokemon2 = await option2
-
     //pokemon 1 
     pokemon1Img.setAttribute('src', option1.imgSrc)
     pokemon1Name.textContent =  capitalFirst(option1.name)
@@ -66,10 +55,7 @@ async function displayPokemon(option1, option2) {
     pokemon2Btn.setAttribute('value', option2.type)
 }
 
-// displayPokemon(getPokemon(2), getPokemon(5))
-
 // store pokemon types for 1 round
-
 function playRound(type1, type2) {
     // gameContinue = false
     let pokemon1Type = {};
@@ -86,20 +72,20 @@ function playRound(type1, type2) {
 
     // if type 1 cat is in type 2 weakness - type 1 wins
     if (pokemon2Type.weakVS.includes(pokemon1Type.type)) {
-        updateOutcome(`you win ${pokemon1Type.type} wins vs ${pokemon2Type.type}`)
+        updateOutcome(`You win!! ${capitalFirst(pokemon1Type.type)} beats ${capitalFirst(pokemon2Type.type)}`)
         // if type 1 cat is in type 2 strong - type 1 loses
         score ++
         updateScore()
         nextRound();
     } else if (pokemon2Type.strongVS.includes(pokemon1Type.type)) {
-        if (confirm(`you lose ${pokemon2Type.type} wins vs ${pokemon1Type.type} -- Play Again?`)) {
+        if (confirm(`You lose!! ${capitalFirst(pokemon2Type.type)} beats ${capitalFirst(pokemon1Type.type)} -- Play Again?`)) {
             score = 0
             updateScore()
             updateOutcome('')
             game()
         }
     } else {
-        updateOutcome(`It's a tie => ${pokemon1Type.type} vs ${pokemon2Type.type}`)
+        updateOutcome(`It's a tie!! ${capitalFirst(pokemon1Type.type)} vs ${capitalFirst(pokemon2Type.type)}`)
         nextRound();
     }  
 }
@@ -120,17 +106,8 @@ function capitalFirst(word) {
 async function nextRound() {
     const pokemon1 = await getPokemon(generateRandom());
     const pokemon2 = await getPokemon(generateRandom());
-    // const pokemon1 = await getPokemon(3);
-    // const pokemon2 = await getPokemon(50);
     displayPokemon(pokemon1, pokemon2)
-    // playRound(pokemon1.type, pokemon2.type)
 }
-
-async function game() {
-    nextRound()
-}
-
-game()
 
 // play game on button click // 'type1' is always players choice
 pokemon1Btn.addEventListener('click', (e) => {
@@ -147,11 +124,11 @@ pokemon2Btn.addEventListener('click', (e) => {
     playRound(type1, type2)
 })
 
+function game() {
+    nextRound()
+}
 
-// compare pokemon cats againts ea other
-// if win add 1
-// if lose game over
-// new game?
+game()
 
 // list types and their strengths/weaknesses
 // https://www.theloadout.com/pokemon-type-chart
@@ -196,7 +173,6 @@ const types = [
         strongVS: ['grass', 'psychic', 'dark'],
         weakVS: ['flying', 'rock', 'fire']
     },
-    // ghost vs ghost anomoly
     {
         type: 'ghost',
         strongVS: ['ghost', 'psychic'],
@@ -233,7 +209,6 @@ const types = [
         weakVS: ['fighting', 'bug', 'fairy']
     },
     {
-        //dragon vs dragon anomoly
         type: 'dragon',
         strongVS: ['dragon'],
         weakVS: ['ice', 'dragon', 'fairy']
@@ -250,7 +225,6 @@ const types = [
     },
 ]
 
-{/* <button class="choose-pokemon-button" id="pokemon2-button"><img class="poke-ball-img" src="./images/pokeball.jpg"></button> */}
 
 
 
