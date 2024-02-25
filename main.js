@@ -5,6 +5,7 @@
 // load new pokemon after each round
 
 // global variables
+let score = 0
 
 // while loop for game?
 
@@ -19,7 +20,14 @@ const pokemon2Img = document.querySelector('#pokemon2-img')
 const pokemon2Name = document.querySelector('#pokemon2-name')
 const pokemon2Btn = document.querySelector('#pokemon2-button')
 
+//buttons
 const choiceBtns = document.querySelectorAll('button');
+
+// score P tag
+const scoreContent = document.querySelector('#score-to-update')
+
+// Round outcome text
+const outcomeText = document.querySelector('#outcome-text');
 
 // generate random num
 function generateRandom() {
@@ -47,11 +55,11 @@ async function displayPokemon(option1, option2) {
 
     //pokemon 1 
     pokemon1Img.setAttribute('src', option1.imgSrc)
-    pokemon1Name.textContent =  option1.name
+    pokemon1Name.textContent =  capitalFirst(option1.name)
 
     // pokemon2
     pokemon2Img.setAttribute('src', option2.imgSrc)
-    pokemon2Name.textContent =  option2.name
+    pokemon2Name.textContent =  capitalFirst(option2.name)
 
     //set buttons value to type (for game purposes)
     pokemon1Btn.setAttribute('value', option1.type)
@@ -63,6 +71,7 @@ async function displayPokemon(option1, option2) {
 // store pokemon types for 1 round
 
 function playRound(type1, type2) {
+    // gameContinue = false
     let pokemon1Type = {};
     let pokemon2Type = {}
     // loop types
@@ -74,19 +83,41 @@ function playRound(type1, type2) {
             pokemon2Type = types[i]
         }
     }
+
     // if type 1 cat is in type 2 weakness - type 1 wins
     if (pokemon2Type.weakVS.includes(pokemon1Type.type)) {
-        console.log(`${pokemon1Type.type} wins vs ${pokemon2Type.type}`)
+        updateOutcome(`you win ${pokemon1Type.type} wins vs ${pokemon2Type.type}`)
         // if type 1 cat is in type 2 strong - type 1 loses
+        score ++
+        updateScore()
+        nextRound();
     } else if (pokemon2Type.strongVS.includes(pokemon1Type.type)) {
-        console.log(`${pokemon2Type.type} wins vs ${pokemon1Type.type}`)
+        if (confirm(`you lose ${pokemon2Type.type} wins vs ${pokemon1Type.type} -- Play Again?`)) {
+            score = 0
+            updateScore()
+            updateOutcome('')
+            game()
+        }
     } else {
-        console.log("it's a tie")
-    }   
-   
+        updateOutcome(`It's a tie => ${pokemon1Type.type} vs ${pokemon2Type.type}`)
+        nextRound();
+    }  
 }
 
-async function game() {
+function updateScore() {
+    scoreContent.textContent = score
+}
+
+function updateOutcome(text) {
+    outcomeText.textContent = text;
+}
+
+function capitalFirst(word) {
+    const capitalised = word.charAt(0).toUpperCase() + word.slice(1)
+    return capitalised
+} 
+
+async function nextRound() {
     const pokemon1 = await getPokemon(generateRandom());
     const pokemon2 = await getPokemon(generateRandom());
     // const pokemon1 = await getPokemon(3);
@@ -95,17 +126,23 @@ async function game() {
     // playRound(pokemon1.type, pokemon2.type)
 }
 
+async function game() {
+    nextRound()
+}
+
 game()
 
 // play game on button click // 'type1' is always players choice
 pokemon1Btn.addEventListener('click', (e) => {
     const type1 = e.target.value
+    console.log(type1)
     const type2 = pokemon2Btn.value
     playRound(type1, type2)
 })
 
 pokemon2Btn.addEventListener('click', (e) => {
     const type1 = e.target.value
+    console.log(type1)
     const type2 = pokemon1Btn.value
     playRound(type1, type2)
 })
@@ -117,6 +154,7 @@ pokemon2Btn.addEventListener('click', (e) => {
 // new game?
 
 // list types and their strengths/weaknesses
+// https://www.theloadout.com/pokemon-type-chart
 const types = [
     {
         type: 'normal',
@@ -212,7 +250,7 @@ const types = [
     },
 ]
 
-// Bug, Dragon, Electric, Fighting, Fire, Flying, Ghost, Grass, Ground, Ice, Normal, Poison, Psychic, Rock, and Water. 
+{/* <button class="choose-pokemon-button" id="pokemon2-button"><img class="poke-ball-img" src="./images/pokeball.jpg"></button> */}
 
-// create object that outlines wins/losses eg {type: water, beats: [fire,], losesTo: [electric]}
-// https://www.theloadout.com/pokemon-type-chart
+
+
