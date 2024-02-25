@@ -30,20 +30,21 @@
     height: auto;
 }
 
-img {
-    background-color: red;
-    border: 0;
-    border-radius: 50px;
-    background-color: transparent;
+button {
+    border-radius: 50%;
     transition: .3s ease-in-out;
     width: 50px;
+    height: 50px;
+    background-image: url('./images/pokeball.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    border: 0;
+    margin-top: 1rem;
 }
 
-img:hover {
+button:hover {
     transform: rotate(180deg);
-}
-
-.poke-ball-img {
 }
 
 .outcome,
