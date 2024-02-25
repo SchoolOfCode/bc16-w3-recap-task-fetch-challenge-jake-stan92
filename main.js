@@ -61,20 +61,43 @@ async function displayPokemon(option1, option2) {
 // displayPokemon(getPokemon(2), getPokemon(5))
 
 // store pokemon types for 1 round
+
 function playRound(type1, type2) {
-    
+    let pokemon1Type = {};
+    let pokemon2Type = {}
+    // loop types
+    for (let i = 0; i < types.length; i++) {
+        if (type1 === types[i].type) {
+            pokemon1Type = types[i]
+        }
+        if (type2 === types[i].type) {
+            pokemon2Type = types[i]
+        }
+    }
+    // if type 1 cat is in type 2 weakness - type 1 wins
+    if (pokemon2Type.weakVS.includes(pokemon1Type.type)) {
+        console.log(`${pokemon1Type.type} wins vs ${pokemon2Type.type}`)
+        // if type 1 cat is in type 2 strong - type 1 loses
+    } else if (pokemon2Type.strongVS.includes(pokemon1Type.type)) {
+        console.log(`${pokemon2Type.type} wins vs ${pokemon1Type.type}`)
+    } else {
+        console.log("it's a tie")
+    }   
+   
 }
 
 async function game() {
     const pokemon1 = await getPokemon(generateRandom());
     const pokemon2 = await getPokemon(generateRandom());
+    // const pokemon1 = await getPokemon(3);
+    // const pokemon2 = await getPokemon(50);
     displayPokemon(pokemon1, pokemon2)
     // playRound(pokemon1.type, pokemon2.type)
 }
 
 game()
 
-// play game on button click 
+// play game on button click // 'type1' is always players choice
 pokemon1Btn.addEventListener('click', (e) => {
     const type1 = e.target.value
     const type2 = pokemon2Btn.value
@@ -87,12 +110,107 @@ pokemon2Btn.addEventListener('click', (e) => {
     playRound(type1, type2)
 })
 
-// buttons to choose your pokemon
 
 // compare pokemon cats againts ea other
 // if win add 1
 // if lose game over
 // new game?
+
+// list types and their strengths/weaknesses
+const types = [
+    {
+        type: 'normal',
+        strongVS: [],
+        weakVS: ['fighting']
+    },
+    {
+        type: 'fighting',
+        strongVS: ['normal', 'rock', 'steel', 'ice', 'dark'],
+        weakVS: ['flying', 'psychic', 'fairy']
+    },
+    {
+        type: 'flying',
+        strongVS: ['fighting', 'bug', 'grass'],
+        weakVS: ['rock', 'electric', 'ice']
+    },
+    {
+        type: 'poison',
+        strongVS: ['grass', 'fairy'],
+        weakVS: ['ground', 'psychic']
+    },
+    {
+        type: 'ground',
+        strongVS: ['poison', 'rock', 'steel', 'fire', 'electric'],
+        weakVS: ['water', 'grass', 'ice']
+    },
+    {
+        type: 'rock',
+        strongVS: ['flying', 'bug', 'fire', 'ice'],
+        weakVS: ['fighting', 'ground', 'steel', 'water', 'grass']
+    },
+    {
+        type: 'grass',
+        strongVS: ['ground', 'rock', 'water'],
+        weakVS: ['flying', 'poison', 'bug', 'fire', 'ice']
+    },
+    {
+        type: 'bug',
+        strongVS: ['grass', 'psychic', 'dark'],
+        weakVS: ['flying', 'rock', 'fire']
+    },
+    // ghost vs ghost anomoly
+    {
+        type: 'ghost',
+        strongVS: ['ghost', 'psychic'],
+        weakVS: ['ghost', 'dark']
+    },
+    {
+        type: 'steel',
+        strongVS: ['rock', 'ice', 'fairy'],
+        weakVS: ['fighting', 'ground', 'fire']
+    },
+    {
+        type: 'fire',
+        strongVS: ['bug', 'steel' ,'grass', 'ice'],
+        weakVS: ['ground', 'rock', 'water']
+    },
+    {
+        type: 'water',
+        strongVS: ['ground', 'rock', 'fire'],
+        weakVS: ['grass', 'electric']
+    },
+    {
+        type: 'electric',
+        strongVS: ['flying', 'water'],
+        weakVS: ['ground']
+    },
+    {
+        type: 'psychic',
+        strongVS: ['fighting', 'poison'],
+        weakVS: ['bug', 'ghost', 'dark']
+    },
+    {
+        type: 'ice',
+        strongVS: ['flying', 'ground', 'grass', 'dragon'],
+        weakVS: ['fighting', 'bug', 'fairy']
+    },
+    {
+        //dragon vs dragon anomoly
+        type: 'dragon',
+        strongVS: ['dragon'],
+        weakVS: ['ice', 'dragon', 'fairy']
+    },
+    {
+        type: 'dark',
+        strongVS: ['ghost', 'psychic'],
+        weakVS: ['fighting', 'bug', 'fairy']
+    },
+    {
+        type: 'fairy',
+        strongVS: ['fighting', 'dragon', 'dark'],
+        weakVS: ['poison', 'steel']
+    },
+]
 
 // Bug, Dragon, Electric, Fighting, Fire, Flying, Ghost, Grass, Ground, Ice, Normal, Poison, Psychic, Rock, and Water. 
 
