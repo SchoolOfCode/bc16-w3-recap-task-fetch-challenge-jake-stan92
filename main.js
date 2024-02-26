@@ -134,91 +134,109 @@ game()
 const types = [
     {
         type: 'normal',
+        typeNum: 1,
         strongVS: [],
         weakVS: ['fighting']
     },
     {
         type: 'fighting',
+        tpyeNum: 2,
         strongVS: ['normal', 'rock', 'steel', 'ice', 'dark'],
         weakVS: ['flying', 'psychic', 'fairy']
     },
     {
         type: 'flying',
+        typeNum: 3,
         strongVS: ['fighting', 'bug', 'grass'],
         weakVS: ['rock', 'electric', 'ice']
     },
     {
         type: 'poison',
+        typeNum: 4,
         strongVS: ['grass', 'fairy'],
         weakVS: ['ground', 'psychic']
     },
     {
         type: 'ground',
+        typeNum: 5,
         strongVS: ['poison', 'rock', 'steel', 'fire', 'electric'],
         weakVS: ['water', 'grass', 'ice']
     },
     {
         type: 'rock',
+        typeNum: 6,
         strongVS: ['flying', 'bug', 'fire', 'ice'],
         weakVS: ['fighting', 'ground', 'steel', 'water', 'grass']
     },
     {
         type: 'grass',
+        typeNum: 12,
         strongVS: ['ground', 'rock', 'water'],
         weakVS: ['flying', 'poison', 'bug', 'fire', 'ice']
     },
     {
         type: 'bug',
+        typNum: 7,
         strongVS: ['grass', 'psychic', 'dark'],
         weakVS: ['flying', 'rock', 'fire']
     },
     {
         type: 'ghost',
+        typeNum: 8,
         strongVS: ['ghost', 'psychic'],
         weakVS: ['ghost', 'dark']
     },
     {
         type: 'steel',
+        typeNum: 9,
         strongVS: ['rock', 'ice', 'fairy'],
         weakVS: ['fighting', 'ground', 'fire']
     },
     {
         type: 'fire',
+        typeNum: 10,
         strongVS: ['bug', 'steel' ,'grass', 'ice'],
         weakVS: ['ground', 'rock', 'water']
     },
     {
         type: 'water',
+        typeNum: 11,
         strongVS: ['ground', 'rock', 'fire'],
         weakVS: ['grass', 'electric']
     },
     {
         type: 'electric',
+        typeNum: 13,
         strongVS: ['flying', 'water'],
         weakVS: ['ground']
     },
     {
         type: 'psychic',
+        typeNum: 14,
         strongVS: ['fighting', 'poison'],
         weakVS: ['bug', 'ghost', 'dark']
     },
     {
         type: 'ice',
+        typeNum: 15,
         strongVS: ['flying', 'ground', 'grass', 'dragon'],
         weakVS: ['fighting', 'bug', 'fairy']
     },
     {
         type: 'dragon',
+        typeNum: 16,
         strongVS: ['dragon'],
         weakVS: ['ice', 'dragon', 'fairy']
     },
     {
         type: 'dark',
+        typeNum: 17,
         strongVS: ['ghost', 'psychic'],
         weakVS: ['fighting', 'bug', 'fairy']
     },
     {
         type: 'fairy',
+        typeNum: 18,
         strongVS: ['fighting', 'dragon', 'dark'],
         weakVS: ['poison', 'steel']
     },
